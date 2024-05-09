@@ -1,27 +1,46 @@
-let saldo = parseFloat(1000.00)
+let saldoBanco = 1000; // Saldo inicial
 
-while (true) {
+function fazerSaque(valor) {
+    if (typeof valor === 'number' && valor > 0 && valor <= saldoBanco) {
+        saldoBanco -= valor
+        alert(`Saque de ${valor} realizado com sucesso. Novo saldo: ${saldoBanco}`)
+    } else {
+        alert("Valor inválido ou saldo insuficiente para o saque.")
+    }
+}
+
+function deposito(valor) {
+    if (typeof valor === 'number' && valor > 0 && valor <= saldoBanco) {
+        saldoBanco += valor
+        alert(`Deposito de ${valor} realizado com sucesso. Novo saldo: ${saldoBanco}`)
+    } else {
+        alert("Valor inválido ou saldo insuficiente para o saque.")
+    }
+}
+
+while(true) {
     user_choice = parseInt(prompt(`1 - Vericar saldo\n2 - Fazer Saque\n3 - Fazer Depósito\n4 - Sair`))
+    if(!isNaN(user_choice)){
+        if(user_choice==1){
+            alert(`Seu saldo é de R$${saldoBanco}`)
+        }
 
-    switch (user_choice){
-        case 1:
-            alert(`R$${saldo}`)
-        
-        case 2:
-            var valor_saque = parseFloat(prompt(`Valor do Saque: `))
-            if (isNaN(valor_saque)){
-                if(valor_saque>saldo||saldo==0){
-                    alert(`Saldo Insuficiente`)
-                }
-                else if(valor_saque<=saldo){
-                    let novo_saldo = valor_saque-saldo
-                    alert(`Saque efetuado Seu novo saldo é de ${novo_saldo.toFixed(2)}`)
-                    let saldo=novo_saldo
-                }
-            }
-        
-        case 4:
-            break  
+        else if(user_choice==2){
+            let valor_saque = parseFloat(prompt(`Qual o valor do saque? `))
+            fazerSaque(valor_saque)
+        }
 
+        else if(user_choice==3){
+            let valor_deposito = parseFloat(prompt(`Qual o valor do depósito?`))
+            deposito(valor_deposito)
+        }
+
+        else if (user_choice==4){
+            alert(`Até mais!`)
+            break
+        }
+    }
+    else{
+        alert(`Não é um numero!`)
     }
 }
